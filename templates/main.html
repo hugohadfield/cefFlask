@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <title>GA online</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <style>
+            body { margin: 500; margin-right: 100; overflow: hidden}
+            canvas { width: 100%; height: 100%; overflow: hidden}
+    </style>
+</head>
+
+
+<body>
+
+<h1> Welcome to cefFlask </h1>
+<p> cefFlask boots a Flask server and points a cefpython window at it. This lets you write a gui in javascript/html with comms to your python code via </p>
+
+<input type="button" value="Refresh Page" onClick="window.location.reload()">
+
+<button onclick="DoRequest()">Execute post request</button>
+
+<div id="results"></div>
+
+<script >
+function SendRequest(){
+    return $.ajax({
+                url : "my_route/",
+                type : "POST",
+            });
+}
+function DoRequest(){
+    SendRequest().success(function (returned_data) {
+        var node = document.createElement("P");
+        var textnode = document.createTextNode(returned_data);
+        node.appendChild(textnode);
+        document.getElementById("results").appendChild(node);
+    });
+}
+</script>
+
+</body>
+</html>
